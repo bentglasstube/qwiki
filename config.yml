@@ -10,7 +10,7 @@ plugins:
   DBIC:
     default:
       dsn: 'dbi:SQLite:data.sqlite'
-      schema_class: 'SimpleWiki::Schema'
+      schema_class: 'Qwiki::Schema'
       options:
         sqlite_unicode: 1
 time_zone: 'America/Phoenix'
