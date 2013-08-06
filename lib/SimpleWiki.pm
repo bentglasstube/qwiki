@@ -19,7 +19,7 @@ sub titulize {
 }
 
 sub get_page {
-  my ($name, $time) = shift;
+  my ($name, $time) = @_;
 
   $time //= time;
 
