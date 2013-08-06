@@ -21,7 +21,9 @@ hook 'before_template' => sub {
   my ($tokens) = @_;
 
   $tokens->{markdown} = sub {
-    return markdown(shift, { empty_element_suffix => '>', tab_width => 2 });
+    my $html = markdown(shift, { empty_element_suffix => '>', tab_width => 2 });
+    $html =~ s/<h([1-5])\b/'<h' . ($1 + 1)/eg;
+    return $html;
   };
 };
 
