@@ -1,4 +1,4 @@
-[% include pagenav.tt page = 'view' %]
+[% include pagenav.tt name = page.name, page = 'view' %]
 
 <h1>[% page.title %]</h1>
 

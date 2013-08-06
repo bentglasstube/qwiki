@@ -1,14 +1,2 @@
-[% include pagenav.tt page = 'hist' %]
-
-<h1>[% page.title %]</h1>
-
-<table class="table">
-  <thead>
-    <tr><th>Page</th><th>Published</th></tr>
-  </thead>
-  <tbody>
-    [% while (page = pages.next) %]
-      <tr><td><a href="/w/[% page.name %]?t=[% page.published %]">[% page.title %]</a></td><td>[% page.published %]</td></tr>
-    [% end %]
-  </tbody>
-</table>
+[% include pagenav.tt name = page.name, page = 'hist' %]
+[% include list.tt %]

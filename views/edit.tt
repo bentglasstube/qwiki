@@ -1,6 +1,6 @@
-[% include pagenav.tt page = 'edit', new = (page.id ? 0 : 1) %]
+[% include pagenav.tt name = page.name, page = 'edit', new = (page.published ? 0 : 1) %]
 
-<h1 contenteditable>[% page.title %]</h1>
+<h1>[% page.title %]</h1>
 <form method="post" action="/w/[% page.name %]">
   <div class="form-group">
     <label for="title">Title</label>

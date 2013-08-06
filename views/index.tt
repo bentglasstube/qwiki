@@ -1,2 +1,6 @@
+[% include pagenav.tt page = 'view' %]
+
 <h1>Index</h1>
-<p>Lorem ipsum dolor sit amet</p>
+
+<p>Welcome to SimpleWiki.  You can edit this page by clicking edit up in the
+corner there.</p>

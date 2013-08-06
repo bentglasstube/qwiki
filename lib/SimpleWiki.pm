@@ -26,26 +26,33 @@ hook 'before_template' => sub {
 };
 
 get '/' => sub {
-  my $latest = schema->resultset('Page')
-    ->search({}, { order_by => 'published desc', rows => 10 });
+  my $page = schema->resultset('Page')
+    ->search({ name => '' }, { order_by => 'published desc' })->first;
+  if ($page) {
+    template 'view', { page => $page };
+  } else {
+    template 'index';
+  }
+};
 
-  template 'index', { latest => $latest };
+get '/latest' => sub {
+  my $pages = schema->resultset('Page')
+    ->search({}, { order_by => 'published desc', rows => 25 });
+  template 'list', { title => 'Latest Changes', pages => $pages };
 };
 
 get '/search' => sub {
-  my $search = '%' . params('q') . '%';
+  my $search = '%' . param('q') . '%';
   my $pages = schema->resultset('Page')->search({ body => { like => $search } },
     { group_by => 'name', order_by => 'published desc' });
-  template 'list', { pages => $pages };
+  template 'list', { title => 'Search Results', pages => $pages };
 };
 
-post '/w/:name' => sub {
-  my $name  = param('name');
-  my $title = param('title');
-  my $body  = param('body');
+post qr'/w/(.*)' => sub {
+  my ($name) = splat;
 
   my $page = schema->resultset('Page')->create({
-    name      => param('name'),
+    name      => $name,
     title     => param('title'),
     body      => param('body'),
     published => time(),
@@ -55,8 +62,9 @@ post '/w/:name' => sub {
   redirect '/w/' . $page->name, 303;
 };
 
-get '/w/:name' => sub {
-  my $name = param('name');
+get qr'/w/(.*)' => sub {
+  my ($name) = splat;
+
   my $time = param('t') || time();
   my $page = schema->resultset('Page')->search(
     { name     => $name,            published => { '<=' => $time } },
@@ -68,7 +76,7 @@ get '/w/:name' => sub {
     } elsif (param('hist')) {
       my $pages = schema->resultset('Page')
         ->search({ name => $name }, { order_by => 'published desc' });
-      template 'history', { pages => $pages };
+      template 'history', { title => $page->title, pages => $pages };
     } else {
       template 'view', { page => $page };
     }
