@@ -2,4 +2,4 @@ use Test::More tests => 1;
 use strict;
 use warnings;
 
-use_ok 'simplewiki';
+use_ok 'Qwiki';

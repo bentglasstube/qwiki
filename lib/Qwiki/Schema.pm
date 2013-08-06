@@ -1,4 +1,4 @@
-package SimpleWiki::Schema;
+package Qwiki::Schema;
 
 use utf8;
 use strict;
