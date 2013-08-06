@@ -11,3 +11,5 @@ plugins:
     default:
       dsn: 'dbi:SQLite:data.sqlite'
       schema_class: 'SimpleWiki::Schema'
+      options:
+        sqlite_unicode: 1
