@@ -18,3 +18,7 @@ textarea.form-control {
 ul.pagenav {
   margin-bottom: 1em;
 }
+
+a.missing {
+  color: #ca5242;
+}

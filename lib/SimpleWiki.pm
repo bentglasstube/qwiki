@@ -17,20 +17,46 @@ sub titulize {
   return ucfirst $name;
 }
 
+sub get_page {
+  my ($name, $time) = shift;
+
+  $time //= time;
+
+  my $page = schema->resultset('Page')->search(
+    { name     => $name,            published => { '<=' => $time } },
+    { order_by => 'published desc', rows      => 1 })->first;
+
+  return $page;
+}
+
 hook 'before_template' => sub {
   my ($tokens) = @_;
 
   $tokens->{markdown} = sub {
-    my $html = markdown(shift, { empty_element_suffix => '>', tab_width => 2 });
+    my $text = shift;
+
+    $text =~ s{\[(\w.*?)\]}{
+      my $link = "/w/$1";
+      my $title = titulize($1);
+      my $class = '';
+      if (my $page = get_page($1)) {
+        $title = $page->title;
+      } else {
+        $class = 'missing';
+      }
+      qq{<a href="$link" class="$class">$title</a>};
+    }xeg;
+
+    my $html = markdown($text, { empty_element_suffix => '>', tab_width => 2 });
+
     $html =~ s/<h([1-5])\b/'<h' . ($1 + 1)/eg;
+
     return $html;
   };
 };
 
 get '/' => sub {
-  my $page = schema->resultset('Page')
-    ->search({ name => '' }, { order_by => 'published desc' })->first;
-  if ($page) {
+  if (my $page = get_page('')) {
     template 'view', { page => $page };
   } else {
     template 'index';
@@ -67,12 +93,7 @@ post qr'/w/(.*)' => sub {
 get qr'/w/(.*)' => sub {
   my ($name) = splat;
 
-  my $time = param('t') || time();
-  my $page = schema->resultset('Page')->search(
-    { name     => $name,            published => { '<=' => $time } },
-    { order_by => 'published desc', rows      => 1 })->first;
-
-  if ($page) {
+  if (my $page = get_page($name, param('t'))) {
     if (param('edit')) {
       template 'edit', { page => $page };
     } elsif (param('hist')) {
