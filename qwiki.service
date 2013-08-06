@@ -1,0 +1,10 @@
+[Unit]
+Description=qwiki - the quick wiki
+
+[Service]
+Type=simple
+User=http
+ExecStart=/usr/bin/site_perl/starman -E production /srv/http/qwiki/bin/app.pl
+
+[Install]
+WantedBy=multi-user.target
