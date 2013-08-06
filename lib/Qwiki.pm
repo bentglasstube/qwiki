@@ -34,9 +34,9 @@ hook 'before_template' => sub {
   my ($tokens) = @_;
 
   $tokens->{markdown} = sub {
-    my $text = shift;
+    my $html = markdown(shift, { empty_element_suffix => '>', tab_width => 2 });
 
-    $text =~ s{\[(\w.*?)\]}{
+    $html =~ s{\[(\w.*?)\]}{
       my $link = "/w/$1";
       my $title = titulize($1);
       my $class = '';
@@ -47,8 +47,6 @@ hook 'before_template' => sub {
       }
       qq{<a href="$link" class="$class">$title</a>};
     }xeg;
-
-    my $html = markdown($text, { empty_element_suffix => '>', tab_width => 2 });
 
     $html =~ s/<h([1-5])\b/'<h' . ($1 + 1)/eg;
 
