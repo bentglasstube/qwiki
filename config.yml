@@ -9,7 +9,7 @@ engines:
 plugins:
   DBIC:
     default:
-      dsn: 'dbi:SQLite:data.sqlite'
+      dsn: 'dbi:SQLite:/srv/http/qwiki/data.sqlite'
       schema_class: 'SimpleWiki::Schema'
       options:
         sqlite_unicode: 1
