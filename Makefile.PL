@@ -10,7 +10,7 @@ $eumm_version =~ s/_//;
 WriteMakefile(
   NAME         => 'simplewiki',
   AUTHOR       => q{YOUR NAME <youremail@example.com>},
-  VERSION_FROM => 'lib/simplewiki.pm',
+  VERSION_FROM => 'lib/SimpleWiki.pm',
   ABSTRACT     => 'YOUR APPLICATION ABSTRACT', (
     $eumm_version >= 6.3001
     ? ('LICENSE' => 'perl')
