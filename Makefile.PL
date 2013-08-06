@@ -8,19 +8,23 @@ my $eumm_version = $ExtUtils::MakeMaker::VERSION;
 $eumm_version =~ s/_//;
 
 WriteMakefile(
-    NAME                => 'simplewiki',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
-    VERSION_FROM        => 'lib/simplewiki.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
-    ($eumm_version >= 6.3001
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More' => 0,
-        'YAML'       => 0,
-        'Dancer'     => 1.3117,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'simplewiki-*' },
+  NAME         => 'simplewiki',
+  AUTHOR       => q{YOUR NAME <youremail@example.com>},
+  VERSION_FROM => 'lib/simplewiki.pm',
+  ABSTRACT     => 'YOUR APPLICATION ABSTRACT', (
+    $eumm_version >= 6.3001
+    ? ('LICENSE' => 'perl')
+    : ()
+  ),
+  PL_FILES  => {},
+  PREREQ_PM => {
+    'Test::More'           => 0,
+    'YAML'                 => 0,
+    'Dancer'               => 1.3117,
+    'Dancer::Plugin::DBIC' => 0,
+    'Text::Markdown'       => 0,
+    'URI::Escape'          => 0,
+  },
+  dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+  clean => { FILES    => 'simplewiki-*' },
 );

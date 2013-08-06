@@ -1,0 +1,20 @@
+body {
+  padding-top: 50px;
+}
+
+#content {
+  margin: 1em;
+}
+
+input.title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+textarea.body {
+  display: block;
+}
+
+ul.pagenav {
+  margin-bottom: 1em;
+}

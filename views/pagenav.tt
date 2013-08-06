@@ -1,0 +1,9 @@
+[% default page = 'view' %]
+[% default new = 0 %]
+
+<ul class="pagenav nav nav-pills pull-right">
+  <li class="[% page == 'view' ? 'active' : '' %][% new ? ' disabled' : '' %]"><a href="?">View</a></li>
+  <li class="[% page == 'edit' ? 'active' : '' %]"><a href="?edit=1">Edit</a></li>
+  <li class="[% page == 'hist' ? 'active' : '' %][% new ? ' disabled' : '' %]"><a href="?hist=1">History</a></li>
+</ul>
+
