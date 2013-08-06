@@ -13,3 +13,5 @@ plugins:
       schema_class: 'SimpleWiki::Schema'
       options:
         sqlite_unicode: 1
+time_zone: 'America/Phoenix'
+time_format: '%Y-%m-%d %H:%M:%S'

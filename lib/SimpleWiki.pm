@@ -6,6 +6,7 @@ use warnings;
 
 use Dancer ':syntax';
 use Dancer::Plugin::DBIC;
+use DateTime;
 use Text::Markdown 'markdown';
 use URI::Escape;
 
@@ -52,6 +53,13 @@ hook 'before_template' => sub {
     $html =~ s/<h([1-5])\b/'<h' . ($1 + 1)/eg;
 
     return $html;
+  };
+
+  $tokens->{ftime} = sub {
+    my $time = shift;
+    my $dt   = DateTime->from_epoch(
+      { epoch => $time, time_zone => config->{time_zone} });
+    return $dt->strftime(config->{time_format});
   };
 };
 

@@ -6,7 +6,10 @@
   </thead>
   <tbody>
     [% while (page = pages.next) %]
-      <tr><td><a href="/w/[% page.name %]?t=[% page.published %]">[% page.title %]</a></td><td>[% page.published %]</td></tr>
+      <tr>
+        <td><a href="/w/[% page.name %]?t=[% page.published %]">[% page.title %]</a></td>
+        <td>[% ftime(page.published) %]</td>
+      </tr>
     [% end %]
   </tbody>
 </table>
